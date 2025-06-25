@@ -1,0 +1,12 @@
+jupyterlab-lsp
+python-lsp-server
+jedi-language-server
+ipywidgets
+jupyterlab-execute-time
+
+numpy
+pandas
+# xgboost
+# scikit-learn
+# seaborn
+# matplotlib

@@ -1,4 +1,4 @@
 {
-    "foreignCodeThreshold": 1,
+    "foreignCodeThreshold": 0,
     "disable": true
 }

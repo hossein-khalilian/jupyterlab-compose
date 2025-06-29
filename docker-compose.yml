@@ -10,7 +10,7 @@ services:
       - ./.jupyter:/home/jovyan/.jupyter
       - ~/.cache:/home/jovyan/.cache
       - conda_envs:/opt/conda/
-    command: start-notebook.py --NotebookApp.token='changethis'
+    command: start-notebook.py --NotebookApp.token="${JUPYTER_TOKEN}"
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
@@ -25,25 +25,11 @@ services:
   #     - ./.jupyter2:/home/jovyan/.jupyter
   #     - ~/.cache:/home/jovyan/.cache
   #     - conda_envs2:/opt/conda/
-  #   command: start-notebook.py --NotebookApp.token='changethis2'
+  #   command: start-notebook.py --NotebookApp.token="${JUPYTER_TOKEN}"
   #
-  # jupyter3:
-  #   restart: always
-  #   build:
-  #     context: .
-  #   ports:
-  #     - 8889:8888
-  #   volumes:
-  #     - ~/projects:/home/jovyan/projects
-  #     - ./.jupyter3:/home/jovyan/.jupyter
-  #     - ~/.cache:/home/jovyan/.cache
-  #     - conda_envs3:/opt/conda/
-  #   command: start-notebook.py --NotebookApp.token='changethis3'
 
 volumes:
   conda_envs:
     driver: local
   # conda_envs2:
-  #   driver: local
-  # conda_envs3:
   #   driver: local

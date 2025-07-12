@@ -10,10 +10,6 @@ sed -i 's/^socks4[[:space:]]\+127\.0\.0\.1[[:space:]]\+9050/socks5 172.17.0.1 10
 if [ -f /tmp/packages.txt ]; then
     xargs -a /tmp/packages.txt apt install -y
 fi
-pipx ensurepath
-
-
-# Modify proxychains config
 
 # Install theme wheels
 pip install /themes/*.whl

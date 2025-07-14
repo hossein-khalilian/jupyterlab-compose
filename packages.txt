@@ -2,5 +2,3 @@ telnet
 iputils-ping
 sqlite3
 ffmpeg
-g++
-pipx

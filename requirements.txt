@@ -4,8 +4,8 @@ jedi-language-server
 ipywidgets
 jupyterlab-execute-time
 
-numpy
-pandas
+# numpy
+# pandas
 # xgboost
 # scikit-learn
 # seaborn

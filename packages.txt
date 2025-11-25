@@ -1,6 +1,0 @@
-telnet
-iputils-ping
-sqlite3
-ffmpeg
-sox
-git-lfs

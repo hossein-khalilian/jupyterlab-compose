@@ -2,23 +2,35 @@ FROM quay.io/jupyter/minimal-notebook:2025-03-03
 
 # Switch to root
 USER root
-RUN apt update && apt install sudo telnet iputils-ping proxychains4 gcc pipx g++ -y
-RUN sed -i 's/^socks4[[:space:]]\+127\.0\.0\.1[[:space:]]\+9050/socks5 172.18.0.1 1081/' /etc/proxychains4.conf
+
+# Install needed system packages
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+        sudo \
+        telnet \
+        iputils-ping \
+        gcc \
+        pipx \
+        ffmpeg \
+        sqlite3 \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 # Copy install script and requirement files
-COPY install.sh /tmp/install.sh
 COPY requirements.txt /tmp/requirements.txt
-COPY packages.txt /tmp/packages.txt
 COPY themes /themes
 
-# Run install script
-RUN bash /tmp/install.sh
+# Install Python dependencies in single layer
+RUN pip install /themes/*.whl \
+ && pip install -r /tmp/requirements.txt
 
-RUN usermod -aG sudo jovyan
-RUN echo 'jovyan:changethis' | chpasswd
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# Configure sudo access for jovyan
+RUN usermod -aG sudo jovyan \
+ && echo 'jovyan ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/jovyan \
+ && chmod 440 /etc/sudoers.d/jovyan
 
 # Switch back to default user
 USER jovyan
 WORKDIR /home/jovyan
-RUN /usr/bin/pipx ensurepath
+
+RUN pipx ensurepath
